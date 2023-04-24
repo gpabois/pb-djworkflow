@@ -5,6 +5,7 @@ from .models import SimpleContext
 from .forms import SimpleForm, CreateForm
 
 class SimpleFlow(Workflow):
+    name = 'simple'
     context_class = SimpleContext
     context_factory = FormBasedContextFactory(CreateForm)
 
