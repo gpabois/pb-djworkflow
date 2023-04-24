@@ -1,6 +1,15 @@
-import os, sys, django
+import os, sys, django, importlib.util
+
 from django.conf import settings
 from django.test.runner import DiscoverRunner
+
+pkg_spec = importlib.util.spec_from_file_location("pb_djworkflow", "./src/pb_djworkflow/__init__.py")
+pkg = importlib.util.module_from_spec(pkg_spec)
+sys.modules['pb_djworkflow'] = pkg
+
+test_pkg_spec = pkg_spec = importlib.util.spec_from_file_location("pb_djworkflow_tests", "./tests/pb_djworkflow_tests/__init__.py")
+test_pkg = importlib.util.module_from_spec(test_pkg_spec)
+sys.modules['pb_djworkflow_tests'] = test_pkg
 
 DIRNAME = os.path.dirname(__file__)
 
@@ -25,14 +34,14 @@ settings.configure(
         'django.contrib.sessions',
         'django_celery_results',
         'pb_djworkflow',
-        'tests'
+        'pb_djworkflow_tests'
     )
 )
 
 django.setup()
 
 TEST_RUNNER = DiscoverRunner(verbosity=1)
-failures = TEST_RUNNER.run_tests(['tests',], verbosity=1)
+failures = TEST_RUNNER.run_tests(['pb_djworkflow_tests',], verbosity=1)
 
 if failures:
     sys.exit(failures)

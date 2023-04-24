@@ -5,8 +5,8 @@ from . import flows
 from . import models
 
 SimpleFlowMutations = generate_flow_mutation(
-    flows.Rvat, 
-    models.Rvat
+    flows.SimpleFlow, 
+    models.SimpleContext
 )
 
 class Query(ObjectType):
