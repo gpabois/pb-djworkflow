@@ -1,0 +1,8 @@
+Django==4.2
+django-celery-results==2.5.0
+celery==5.2.7
+psycopg2==2.9.6
+graphql_relay==3.2.0
+graphene_django==3.0.0
+django-filter==23.1
+pb-graphene==0.0.01
